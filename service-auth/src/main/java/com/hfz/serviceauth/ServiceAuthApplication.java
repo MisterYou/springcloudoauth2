@@ -24,62 +24,62 @@ import javax.sql.DataSource;
 public class ServiceAuthApplication {
 
 
-//	@Autowired
-//	@Qualifier("dataSource")
-//	private DataSource dataSource;
+	@Autowired
+	@Qualifier("dataSource")
+	private DataSource dataSource;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServiceAuthApplication.class, args);
 	}
 
-//	@Configuration
-//	@EnableAuthorizationServer
-//	protected  class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
-//
-//		//private TokenStore tokenStore = new InMemoryTokenStore();
-//
-//		JdbcTokenStore tokenStore=new JdbcTokenStore(dataSource);
-//
-//		@Autowired
-//		@Qualifier("authenticationManagerBean")
-//		private AuthenticationManager authenticationManager;
-//
-//		@Autowired
-//		private UserServiceDetail userServiceDetail;
-//
-//
-//		@Override
-//		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//
-//			//客户端信息保存在内存中
-//			clients.inMemory()
-//					.withClient("browser")
-//					.authorizedGrantTypes("refresh_token", "password")
-//					.scopes("ui")
-//					.and()
-//					.withClient("service-hi")
-//					.secret("123456")
-//					.authorizedGrantTypes("client_credentials", "refresh_token","password")
-//					.scopes("server");
-//
-//		}
-//
-//		@Override
-//		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//			endpoints
-//					.tokenStore(tokenStore)
-//					.authenticationManager(authenticationManager) //配置了才会开启密码类型的验证
-//					.userDetailsService(userServiceDetail);
-//		}
-//
-//		@Override
-//		public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-//			oauthServer
-//					.tokenKeyAccess("permitAll()")
-//					.checkTokenAccess("isAuthenticated()");
-//
-//		}
-//	}
+	@Configuration
+	@EnableAuthorizationServer
+	protected  class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
+
+		//private TokenStore tokenStore = new InMemoryTokenStore();
+
+		JdbcTokenStore tokenStore=new JdbcTokenStore(dataSource);
+
+		@Autowired
+		@Qualifier("authenticationManagerBean")
+		private AuthenticationManager authenticationManager;
+
+		@Autowired
+		private UserServiceDetail userServiceDetail;
+
+
+		@Override
+		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+			//客户端信息保存在内存中
+			clients.inMemory()
+					.withClient("browser")
+					.authorizedGrantTypes("refresh_token", "password")
+					.scopes("ui")
+					.and()
+					.withClient("service-hi")
+					.secret("123456")
+					.authorizedGrantTypes("client_credentials", "refresh_token","password")
+					.scopes("server");
+
+		}
+
+		@Override
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+			endpoints
+					.tokenStore(tokenStore)
+					.authenticationManager(authenticationManager) //配置了才会开启密码类型的验证
+					.userDetailsService(userServiceDetail);
+		}
+
+		@Override
+		public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+			oauthServer
+					.tokenKeyAccess("permitAll()")
+					.checkTokenAccess("isAuthenticated()");
+
+		}
+	}
 
 
 
